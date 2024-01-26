@@ -26,7 +26,7 @@ RUN \
   cd /tmp && \
   curl -o \
     /tmp/altus.app -L \
-    "https://github.com/amanharwara/altus/releases/download/${ALTUS_VERSION}/Altus-${ALTUS_VERSION}-x86_64.AppImage" && \
+    "https://github.com/amanharwara/altus/releases/download/${ALTUS_VERSION}/Altus-${ALTUS_VERSION}.AppImage" && \
   chmod +x /tmp/altus.app && \
   ./altus.app --appimage-extract && \
   mv squashfs-root /opt/altus && \
