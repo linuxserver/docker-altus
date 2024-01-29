@@ -314,4 +314,5 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **29.01.24:** - Structural changes for v5.
 * **07.12.23:** - Initial release.
