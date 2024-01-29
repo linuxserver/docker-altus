@@ -1,7 +1,0 @@
-#!/usr/bin/with-contenv bash
-# shellcheck shell=bash
-
-# permissions
-echo "**** Fixing app folder permissions ****"
-lsiown -R abc:abc \
-    /opt/altus
