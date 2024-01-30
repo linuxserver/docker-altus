@@ -75,4 +75,5 @@ app_setup_block: |
 
 # changelog
 changelogs:
+  - { date: "29.01.24:", desc: "Structural changes for v5." }
   - { date: "07.12.23:", desc: "Initial release." }

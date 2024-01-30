@@ -30,6 +30,8 @@ RUN \
   chmod +x /tmp/altus.app && \
   ./altus.app --appimage-extract && \
   mv squashfs-root /opt/altus && \
+  find /opt/altus -type d -exec chmod go+rx {} + && \
+  ln -s /opt/altus/Altus /opt/altus/altus && \
   sed -i 's|</applications>|  <application title="Altus*" type="normal">\n    <maximized>yes</maximized>\n  </application>\n</applications>|' /etc/xdg/openbox/rc.xml && \
   echo "**** cleanup ****" && \
   apt-get autoclean && \
