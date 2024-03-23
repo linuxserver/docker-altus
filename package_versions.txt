@@ -55,7 +55,7 @@ NAME                                                                          VE
 @tufjs/models                                                                 2.0.0                                               npm                         
 @types/cookie                                                                 0.4.1                                               npm                         
 @types/cors                                                                   2.8.17                                              npm                         
-@types/node                                                                   20.11.26                                            npm                         
+@types/node                                                                   20.11.28                                            npm                         
 PyGObject                                                                     3.42.2                                              python                      
 PyJWT                                                                         2.6.0                                               python                      
 abbrev                                                                        2.0.0                                               npm                         
@@ -1372,7 +1372,7 @@ sigstore                                                                      2.
 six                                                                           1.16.0                                              python                      
 slice-ansi                                                                    3.0.0                                               npm                         
 smart-buffer                                                                  4.2.0                                               npm                         
-socket.io                                                                     4.7.4                                               npm                         
+socket.io                                                                     4.7.5                                               npm                         
 socket.io-adapter                                                             2.5.4                                               npm                         
 socket.io-parser                                                              4.2.4                                               npm                         
 socks                                                                         2.7.1                                               npm                         
