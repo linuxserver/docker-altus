@@ -40,6 +40,7 @@ NAME                                                                          VE
 @sigstore/tuf                                                                 2.3.2                                               npm                          
 @sigstore/verify                                                              1.2.0                                               npm                          
 @socket.io/component-emitter                                                  3.1.2                                               npm                          
+@socket.io/component-emitter                                                  UNKNOWN                                             npm        (+1 duplicate)    
 @solid-primitives/event-listener                                              2.3.0                                               npm                          
 @solid-primitives/keyed                                                       1.2.0                                               npm                          
 @solid-primitives/map                                                         0.4.8                                               npm                          
@@ -140,16 +141,16 @@ cross-spawn                                                                   7.
 cryptography                                                                  38.0.4                                              python     (+1 duplicate)    
 cssesc                                                                        3.0.0                                               npm                          
 csstype                                                                       3.1.2                                               npm                          
-cups                                                                          2.4.2-3+deb12u7                                     deb                          
-cups-client                                                                   2.4.2-3+deb12u7                                     deb                          
-cups-common                                                                   2.4.2-3+deb12u7                                     deb                          
-cups-core-drivers                                                             2.4.2-3+deb12u7                                     deb                          
-cups-daemon                                                                   2.4.2-3+deb12u7                                     deb                          
-cups-filters                                                                  1.28.17-3                                           deb                          
-cups-filters-core-drivers                                                     1.28.17-3                                           deb                          
-cups-ipp-utils                                                                2.4.2-3+deb12u7                                     deb                          
-cups-ppdc                                                                     2.4.2-3+deb12u7                                     deb                          
-cups-server-common                                                            2.4.2-3+deb12u7                                     deb                          
+cups                                                                          2.4.2-3+deb12u8                                     deb                          
+cups-client                                                                   2.4.2-3+deb12u8                                     deb                          
+cups-common                                                                   2.4.2-3+deb12u8                                     deb                          
+cups-core-drivers                                                             2.4.2-3+deb12u8                                     deb                          
+cups-daemon                                                                   2.4.2-3+deb12u8                                     deb                          
+cups-filters                                                                  1.28.17-3+deb12u1                                   deb                          
+cups-filters-core-drivers                                                     1.28.17-3+deb12u1                                   deb                          
+cups-ipp-utils                                                                2.4.2-3+deb12u8                                     deb                          
+cups-ppdc                                                                     2.4.2-3+deb12u8                                     deb                          
+cups-server-common                                                            2.4.2-3+deb12u8                                     deb                          
 curl                                                                          7.88.1-10+deb12u7                                   deb                          
 dario.cat/mergo                                                               v1.0.0                                              go-module  (+1 duplicate)    
 dario.cat/mergo                                                               v1.0.1                                              go-module                    
@@ -202,6 +203,7 @@ encodeurl                                                                     2.
 encoding                                                                      0.1.13                                              npm                          
 engine.io                                                                     6.6.1                                               npm                          
 engine.io-parser                                                              5.2.3                                               npm                          
+engine.io-parser                                                              UNKNOWN                                             npm        (+1 duplicate)    
 env-paths                                                                     2.2.1                                               npm        (+1 duplicate)    
 err-code                                                                      2.0.3                                               npm                          
 es-define-property                                                            1.0.0                                               npm                          
@@ -750,8 +752,8 @@ libcolord2                                                                    1.
 libcom-err2                                                                   1.47.0-2                                            deb                          
 libcrypt1                                                                     1:4.4.33-2                                          deb                          
 libcryptsetup12                                                               2:2.6.1-4~deb12u2                                   deb                          
-libcups2                                                                      2.4.2-3+deb12u7                                     deb                          
-libcupsfilters1                                                               1.28.17-3                                           deb                          
+libcups2                                                                      2.4.2-3+deb12u8                                     deb                          
+libcupsfilters1                                                               1.28.17-3+deb12u1                                   deb                          
 libcurl3-gnutls                                                               7.88.1-10+deb12u7                                   deb                          
 libcurl4                                                                      7.88.1-10+deb12u7                                   deb                          
 libdata-optlist-perl                                                          0.113-1                                             deb                          
@@ -800,7 +802,7 @@ libfile-sharedir-perl                                                         1.
 libflac12                                                                     1.4.2+ds-2                                          deb                          
 libflite1                                                                     2.2-5                                               deb                          
 libfontconfig1                                                                2.14.1-4                                            deb                          
-libfontembed1                                                                 1.28.17-3                                           deb                          
+libfontembed1                                                                 1.28.17-3+deb12u1                                   deb                          
 libfontenc1                                                                   1:1.1.4-1                                           deb                          
 libfreetype6                                                                  2.12.1+dfsg-5+deb12u3                               deb                          
 libfribidi0                                                                   1.0.8-2.1                                           deb                          
@@ -1332,6 +1334,13 @@ socks                                                                         2.
 socks-proxy-agent                                                             8.0.3                                               npm                          
 software-properties-common                                                    0.99.30-4.1~deb12u1                                 deb                          
 solid-js                                                                      1.7.11                                              npm                          
+solid-js/h                                                                    UNKNOWN                                             npm                          
+solid-js/h/jsx-dev-runtime                                                    UNKNOWN                                             npm                          
+solid-js/h/jsx-runtime                                                        UNKNOWN                                             npm                          
+solid-js/html                                                                 UNKNOWN                                             npm                          
+solid-js/store                                                                UNKNOWN                                             npm                          
+solid-js/universal                                                            UNKNOWN                                             npm                          
+solid-js/web                                                                  UNKNOWN                                             npm                          
 sort-keys                                                                     1.1.2                                               npm                          
 sort-keys-length                                                              1.0.1                                               npm                          
 spdx-correct                                                                  3.2.0                                               npm                          
