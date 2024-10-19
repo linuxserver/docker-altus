@@ -29,14 +29,14 @@ pipeline {
     DEV_DOCKERHUB_IMAGE = 'lsiodev/altus'
     PR_DOCKERHUB_IMAGE = 'lspipepr/altus'
     DIST_IMAGE = 'ubuntu'
-    MULTIARCH = 'false'
+    MULTIARCH = 'true'
     CI = 'true'
     CI_WEB = 'true'
     CI_PORT = '3000'
     CI_SSL = 'false'
     CI_DELAY = '120'
-    CI_DOCKERENV = 'TZ=US/Pacific'
-    CI_AUTH = 'user:password'
+    CI_DOCKERENV = ''
+    CI_AUTH = ''
     CI_WEBPATH = ''
   }
   stages {
