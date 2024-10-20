@@ -1,0 +1,73 @@
+# syntax=docker/dockerfile:1
+
+# build stage
+FROM ghcr.io/linuxserver/baseimage-debian:arm64v8-bookworm AS build-stage
+
+ARG ALTUS_VERSION
+
+RUN \
+  echo "**** install build packages ****" && \
+  apt-get update && \
+  DEBIAN_FRONTEND=noninteractive \
+  apt-get install -y \
+    nodejs \
+    npm && \
+  npm install --global yarn && \
+  ln -s /usr/lib/aarch64-linux-gnu/libz.so.1 /usr/lib/aarch64-linux-gnu/libz.so && \
+  echo "**** build altus ****" && \
+  if [ -z "${ALTUS_VERSION+x}" ]; then \
+    ALTUS_VERSION=$(curl -sX GET "https://api.github.com/repos/amanharwara/altus/releases/latest" \
+      | awk '/tag_name/{print $4;exit}' FS='[""]'); \
+  fi && \
+  git clone -b "${ALTUS_VERSION}" https://github.com/amanharwara/altus.git /tmp/altus && \
+  cd /tmp/altus && \
+  yarn install && \
+  yarn run make -p linux && \
+  mv out/make/*.AppImage /tmp/altus.app && \
+  cd /tmp && \
+  chmod +x /tmp/altus.app && \
+  ./altus.app --appimage-extract && \
+  mv squashfs-root /opt/altus && \
+  find /opt/altus -type d -exec chmod go+rx {} + && \
+  ln -s /opt/altus/Altus /opt/altus/altus
+
+# runtime stage
+FROM ghcr.io/linuxserver/baseimage-kasmvnc:arm64v8-debianbookworm
+
+# set version label
+ARG BUILD_DATE
+ARG VERSION
+ARG ALTUS_VERSION
+LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
+LABEL maintainer="thelamer"
+
+# title
+ENV TITLE=Altus 
+
+COPY --from=build-stage /opt/altus /opt/altus
+
+RUN \
+  echo "**** install packages ****" && \
+  apt-get update && \
+  DEBIAN_FRONTEND=noninteractive \
+  apt-get install --no-install-recommends -y \
+    libatk1.0-0 \
+    libatk-bridge2.0-0 \
+    libgtk-3-0 && \
+  sed -i 's|</applications>|  <application title="Altus*" type="normal">\n    <maximized>yes</maximized>\n  </application>\n</applications>|' /etc/xdg/openbox/rc.xml && \
+  printf "Linuxserver.io version: ${VERSION}\nBuild-date: ${BUILD_DATE}" > /build_version && \
+  echo "**** cleanup ****" && \
+  apt-get autoclean && \
+  rm -rf \
+    /config/.cache \
+    /config/.launchpadlib \
+    /var/lib/apt/lists/* \
+    /var/tmp/* \
+    /tmp/*
+
+# add local files
+COPY /root /
+
+# ports and volumes
+EXPOSE 3000
+VOLUME /config

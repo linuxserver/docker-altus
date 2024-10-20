@@ -1,3 +1,5 @@
+# syntax=docker/dockerfile:1
+
 FROM ghcr.io/linuxserver/baseimage-kasmvnc:debianbookworm
 
 # set version label
@@ -19,9 +21,9 @@ RUN \
     libatk-bridge2.0-0 \
     libgtk-3-0 && \
   echo "**** install altus studio from appimage ****" && \
-  if [ -z ${ALTUS_VERSION+x} ]; then \
+  if [ -z "${ALTUS_VERSION+x}" ]; then \
     ALTUS_VERSION=$(curl -sX GET "https://api.github.com/repos/amanharwara/altus/releases/latest" \
-    | awk '/tag_name/{print $4;exit}' FS='[""]'); \
+      | awk '/tag_name/{print $4;exit}' FS='[""]'); \
   fi && \
   cd /tmp && \
   curl -o \
@@ -33,6 +35,7 @@ RUN \
   find /opt/altus -type d -exec chmod go+rx {} + && \
   ln -s /opt/altus/Altus /opt/altus/altus && \
   sed -i 's|</applications>|  <application title="Altus*" type="normal">\n    <maximized>yes</maximized>\n  </application>\n</applications>|' /etc/xdg/openbox/rc.xml && \
+  printf "Linuxserver.io version: ${VERSION}\nBuild-date: ${BUILD_DATE}" > /build_version && \
   echo "**** cleanup ****" && \
   apt-get autoclean && \
   rm -rf \

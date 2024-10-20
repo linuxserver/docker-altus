@@ -54,7 +54,7 @@ The architectures supported by this image are:
 | Architecture | Available | Tag |
 | :----: | :----: | ---- |
 | x86-64 | ✅ | amd64-\<version tag\> |
-| arm64 | ❌ | |
+| arm64 | ✅ | arm64v8-\<version tag\> |
 | armhf | ❌ | |
 
 ## Application Setup
@@ -113,7 +113,7 @@ services:
       - PGID=1000
       - TZ=Etc/UTC
     volumes:
-      - /path/to/config:/config
+      - /path/to/altus/config:/config
     ports:
       - 3000:3000
       - 3001:3001
@@ -132,7 +132,7 @@ docker run -d \
   -e TZ=Etc/UTC \
   -p 3000:3000 \
   -p 3001:3001 \
-  -v /path/to/config:/config \
+  -v /path/to/altus/config:/config \
   --shm-size="1gb" \
   --restart unless-stopped \
   lscr.io/linuxserver/altus:latest
@@ -315,5 +315,6 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **19.10.24:** - Switch to multi-arch.
 * **29.01.24:** - Structural changes for v5.
 * **07.12.23:** - Initial release.
