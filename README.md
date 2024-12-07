@@ -94,10 +94,12 @@ This container is based on [Docker Baseimage KasmVNC](https://github.com/linuxse
 
 This container is capable of delivering a true lossless image at a high framerate to your web browser by changing the Stream Quality preset to "Lossless", more information [here](https://www.kasmweb.com/docs/latest/how_to/lossless.html#technical-background). In order to use this mode from a non localhost endpoint the HTTPS port on 3001 needs to be used. If using a reverse proxy to port 3000 specific headers will need to be set as outlined [here](https://github.com/linuxserver/docker-baseimage-kasmvnc#lossless).
 
- 
 ## Usage
 
 To help you get started creating a container from this image you can either use docker-compose or the docker cli.
+
+>[!NOTE]
+>Unless a parameter is flaged as 'optional', it is *mandatory* and a value must be provided.
 
 ### docker-compose (recommended, [click here for more info](https://docs.linuxserver.io/general/docker-compose))
 
@@ -145,8 +147,8 @@ Containers are configured using parameters passed at runtime (such as those abov
 
 | Parameter | Function |
 | :----: | --- |
-| `-p 3000` | Altus desktop gui. |
-| `-p 3001` | Altus desktop gui HTTPS. |
+| `-p 3000:3000` | Altus desktop gui. |
+| `-p 3001:3001` | Altus desktop gui HTTPS. |
 | `-e PUID=1000` | for UserID - see below for explanation |
 | `-e PGID=1000` | for GroupID - see below for explanation |
 | `-e TZ=Etc/UTC` | specify a timezone to use, see this [list](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List). |
