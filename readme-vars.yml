@@ -6,6 +6,7 @@ project_url: "https://github.com/amanharwara/altus"
 project_logo: "https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/altus-logo.png"
 project_blurb: "[Altus]({{ project_url }}) is an Electron-based WhatsApp client with themes and multiple account support."
 project_lsio_github_repo_url: "https://github.com/linuxserver/docker-{{ project_name }}"
+project_categories: "Chat"
 project_blurb_optional_extras_enabled: false
 # supported architectures
 available_architectures:
