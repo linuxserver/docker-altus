@@ -58,38 +58,151 @@ The architectures supported by this image are:
 
 The application can be accessed at:
 
-* http://yourhost:3000/
 * https://yourhost:3001/
 
-### Options in all KasmVNC based GUI containers
+### Strict reverse proxies
 
-This container is based on [Docker Baseimage KasmVNC](https://github.com/linuxserver/docker-baseimage-kasmvnc) which means there are additional environment variables and run configurations to enable or disable specific functionality.
+This image uses a self-signed certificate by default. This naturally means the scheme is `https`.
+If you are using a reverse proxy which validates certificates, you need to [disable this check for the container](https://docs.linuxserver.io/faq#strict-proxy).
 
-#### Optional environment variables
+**Modern GUI desktop apps may have compatibility issues with the latest Docker syscall restrictions. You can use Docker with the `--security-opt seccomp=unconfined` setting to allow these syscalls on hosts with older Kernels or libseccomp versions.**
+
+### Security
+
+>[!WARNING]
+>This container provides privileged access to the host system. Do not expose it to the Internet unless you have secured it properly.
+
+**HTTPS is required for full functionality.** Modern browser features such as WebCodecs, used for video and audio, will not function over an insecure HTTP connection.
+
+By default, this container has no authentication. The optional `CUSTOM_USER` and `PASSWORD` environment variables enable basic HTTP auth, which is suitable only for securing the container on a trusted local network. For internet exposure, we strongly recommend placing the container behind a reverse proxy, such as [SWAG](https://github.com/linuxserver/docker-swag), with a robust authentication mechanism.
+
+The web interface includes a terminal with passwordless `sudo` access. Any user with access to the GUI can gain root control within the container, install arbitrary software, and probe your local network.
+
+### Options in all Selkies-based GUI containers
+
+This container is based on [Docker Baseimage Selkies](https://github.com/linuxserver/docker-baseimage-selkies), which provides the following environment variables and run configurations to customize its functionality.
+
+#### Optional Environment Variables
 
 | Variable | Description |
 | :----: | --- |
-| CUSTOM_PORT | Internal port the container listens on for http if it needs to be swapped from the default 3000. |
-| CUSTOM_HTTPS_PORT | Internal port the container listens on for https if it needs to be swapped from the default 3001. |
-| CUSTOM_USER | HTTP Basic auth username, abc is default. |
-| PASSWORD | HTTP Basic auth password, abc is default. If unset there will be no auth |
-| SUBFOLDER | Subfolder for the application if running a subfolder reverse proxy, need both slashes IE `/subfolder/` |
-| TITLE | The page title displayed on the web browser, default "KasmVNC Client". |
-| FM_HOME | This is the home directory (landing) for the file manager, default "/config". |
-| START_DOCKER | If set to false a container with privilege will not automatically start the DinD Docker setup. |
-| DRINODE | If mounting in /dev/dri for [DRI3 GPU Acceleration](https://www.kasmweb.com/kasmvnc/docs/master/gpu_acceleration.html) allows you to specify the device to use IE `/dev/dri/renderD128` |
+| `CUSTOM_PORT` | Internal HTTP port. Defaults to `3000`. |
+| `CUSTOM_HTTPS_PORT` | Internal HTTPS port. Defaults to `3001`. |
+| `CUSTOM_USER` | Username for HTTP Basic Auth. Defaults to `abc`. |
+| `PASSWORD` | Password for HTTP Basic Auth. If unset, authentication is disabled. |
+| `SUBFOLDER` | Application subfolder for reverse proxy configurations. Must include leading and trailing slashes, e.g., `/subfolder/`. |
+| `TITLE` | Page title displayed in the web browser. Defaults to "Selkies". |
+| `START_DOCKER` | If set to `false`, the privileged Docker-in-Docker setup will not start automatically. |
+| `DISABLE_IPV6` | Set to `true` to disable IPv6 support in the container. | 
+| `LC_ALL` | Sets the container's locale, e.g., `fr_FR.UTF-8`. |
+| `DRINODE` | If mounting in /dev/dri for DRI3 GPU Acceleration allows you to specify the device to use IE `/dev/dri/renderD128` |
+| `NO_DECOR` | If set, applications will run without window borders, suitable for PWA usage. |
+| `NO_FULL` | If set, applications will not be automatically fullscreened. |
+| `DISABLE_ZINK` | If set, Zink-related environment variables will not be configured when a video card is detected. |
+| `WATERMARK_PNG` | Full path to a watermark PNG file inside the container, e.g., `/usr/share/selkies/www/icon.png`. |
+| `WATERMARK_LOCATION` | Integer specifying the watermark location: `1` (Top Left), `2` (Top Right), `3` (Bottom Left), `4` (Bottom Right), `5` (Centered), `6` (Animated). |
 
-#### Optional run configurations
+#### Optional Run Configurations
 
-| Variable | Description |
+| Argument | Description |
 | :----: | --- |
-| `--privileged` | Will start a Docker in Docker (DinD) setup inside the container to use docker in an isolated environment. For increased performance mount the Docker directory inside the container to the host IE `-v /home/user/docker-data:/var/lib/docker`. |
-| `-v /var/run/docker.sock:/var/run/docker.sock` | Mount in the host level Docker socket to either interact with it via CLI or use Docker enabled applications. |
-| `--device /dev/dri:/dev/dri` | Mount a GPU into the container, this can be used in conjunction with the `DRINODE` environment variable to leverage a host video card for GPU accelerated appplications. Only **Open Source** drivers are supported IE (Intel,AMDGPU,Radeon,ATI,Nouveau) |
+| `--privileged` | Starts a Docker-in-Docker (DinD) environment. For better performance, mount the Docker data directory from the host, e.g., `-v /path/to/docker-data:/var/lib/docker`. |
+| `-v /var/run/docker.sock:/var/run/docker.sock` | Mounts the host's Docker socket to manage host containers from within this container. |
+| `--device /dev/dri:/dev/dri` | Mount a GPU into the container, this can be used in conjunction with the `DRINODE` environment variable to leverage a host video card for GPU accelerated applications. Only **Open Source** drivers are supported IE (Intel,AMDGPU,Radeon,ATI,Nouveau) |
 
-### Lossless mode
+### Language Support - Internationalization
 
-This container is capable of delivering a true lossless image at a high framerate to your web browser by changing the Stream Quality preset to "Lossless", more information [here](https://www.kasmweb.com/docs/latest/how_to/lossless.html#technical-background). In order to use this mode from a non localhost endpoint the HTTPS port on 3001 needs to be used. If using a reverse proxy to port 3000 specific headers will need to be set as outlined [here](https://github.com/linuxserver/docker-baseimage-kasmvnc#lossless).
+To launch the desktop session in a different language, set the `LC_ALL` environment variable. For example:
+
+*   `-e LC_ALL=zh_CN.UTF-8` - Chinese
+*   `-e LC_ALL=ja_JP.UTF-8` - Japanese
+*   `-e LC_ALL=ko_KR.UTF-8` - Korean
+*   `-e LC_ALL=ar_AE.UTF-8` - Arabic
+*   `-e LC_ALL=ru_RU.UTF-8` - Russian
+*   `-e LC_ALL=es_MX.UTF-8` - Spanish (Latin America)
+*   `-e LC_ALL=de_DE.UTF-8` - German
+*   `-e LC_ALL=fr_FR.UTF-8` - French
+*   `-e LC_ALL=nl_NL.UTF-8` - Netherlands
+*   `-e LC_ALL=it_IT.UTF-8` - Italian
+
+### DRI3 GPU Acceleration
+
+For accelerated apps or games, render devices can be mounted into the container and leveraged by applications using:
+
+`--device /dev/dri:/dev/dri`
+
+This feature only supports **Open Source** GPU drivers:
+
+| Driver | Description |
+| :----: | --- |
+| Intel | i965 and i915 drivers for Intel iGPU chipsets |
+| AMD | AMDGPU, Radeon, and ATI drivers for AMD dedicated or APU chipsets |
+| NVIDIA | nouveau2 drivers only, closed source NVIDIA drivers lack DRI3 support |
+
+The `DRINODE` environment variable can be used to point to a specific GPU.
+
+DRI3 will work on aarch64 given the correct drivers are installed inside the container for your chipset.
+
+### Nvidia GPU Support
+
+**Note: Nvidia support is not available for Alpine-based images.**
+
+Nvidia GPU support is available by leveraging Zink for OpenGL. When a compatible Nvidia GPU is passed through, it will also be **automatically utilized for hardware-accelerated video stream encoding** (using the `x264enc` full-frame profile), significantly reducing CPU load.
+
+Enable Nvidia support with the following runtime flags:
+
+| Flag | Description |
+| :----: | --- |
+| `--gpus all` | Passes all available host GPUs to the container. This can be filtered to specific GPUs. |
+| `--runtime nvidia` | Specifies the Nvidia runtime, which provides the necessary drivers and tools from the host. |
+
+For Docker Compose, you must first configure the Nvidia runtime as the default on the host:
+
+```
+sudo nvidia-ctk runtime configure --runtime=docker --set-as-default
+sudo systemctl restart docker
+```
+
+Then, assign the GPU to the service in your `compose.yaml`:
+
+```
+services:
+  altus:
+    image: lscr.io/linuxserver/altus:latest
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [compute,video,graphics,utility]
+```
+
+### Application Management
+
+There are two methods for installing applications inside the container: PRoot Apps (recommended for persistence) and Native Apps.
+
+#### PRoot Apps (Persistent)
+
+Natively installed packages (e.g., via `apt-get install`) will not persist if the container is recreated. To retain applications and their settings across container updates, we recommend using [proot-apps](https://github.com/linuxserver/proot-apps). These are portable applications installed to the user's persistent `$HOME` directory.
+
+To install an application, use the command line inside the container:
+
+```
+proot-apps install filezilla
+```
+
+A list of supported applications is available [here](https://github.com/linuxserver/proot-apps?tab=readme-ov-file#supported-apps).
+
+#### Native Apps (Non-Persistent)
+
+You can install packages from the system's native repository using the [universal-package-install](https://github.com/linuxserver/docker-mods/tree/universal-package-install) mod. This method will increase the container's start time and is not persistent. Add the following to your `compose.yaml`:
+
+```yaml
+  environment:
+    - DOCKER_MODS=linuxserver/mods:universal-package-install
+    - INSTALL_PACKAGES=libfuse2|git|gdb
+```
 
 ## Usage
 
@@ -144,7 +257,7 @@ Containers are configured using parameters passed at runtime (such as those abov
 
 | Parameter | Function |
 | :----: | --- |
-| `-p 3000:3000` | Altus desktop gui. |
+| `-p 3000:3000` | Altus desktop gui HTTP, must be proxied. |
 | `-p 3001:3001` | Altus desktop gui HTTPS. |
 | `-e PUID=1000` | for UserID - see below for explanation |
 | `-e PGID=1000` | for GroupID - see below for explanation |
@@ -315,6 +428,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **12.07.25:** - Rebase to Selkies, HTTPS IS NOW REQUIRED.
 * **19.10.24:** - Switch to multi-arch.
 * **29.01.24:** - Structural changes for v5.
 * **07.12.23:** - Initial release.

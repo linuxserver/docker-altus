@@ -33,7 +33,7 @@ RUN \
   ln -s /opt/altus/Altus /opt/altus/altus
 
 # runtime stage
-FROM ghcr.io/linuxserver/baseimage-kasmvnc:arm64v8-debianbookworm
+FROM ghcr.io/linuxserver/baseimage-selkies:arm64v8-debianbookworm
 
 # set version label
 ARG BUILD_DATE
@@ -48,13 +48,18 @@ ENV TITLE=Altus
 COPY --from=build-stage /opt/altus /opt/altus
 
 RUN \
+  echo "**** add icon ****" && \
+  curl -o \
+    /usr/share/selkies/www/icon.png \
+    https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/altus-logo.png && \
   echo "**** install packages ****" && \
   apt-get update && \
   DEBIAN_FRONTEND=noninteractive \
   apt-get install --no-install-recommends -y \
     libatk1.0-0 \
     libatk-bridge2.0-0 \
-    libgtk-3-0 && \
+    libgtk-3-0 \
+    libnss3 && \
   sed -i 's|</applications>|  <application title="Altus*" type="normal">\n    <maximized>yes</maximized>\n  </application>\n</applications>|' /etc/xdg/openbox/rc.xml && \
   printf "Linuxserver.io version: ${VERSION}\nBuild-date: ${BUILD_DATE}" > /build_version && \
   echo "**** cleanup ****" && \
