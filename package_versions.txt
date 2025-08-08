@@ -83,7 +83,7 @@ cpp-12                                                                        12
 cron                                                                          3.0pl1-162                                 deb                         
 cron-daemon-common                                                            3.0pl1-162                                 deb                         
 cryptography                                                                  38.0.4                                     python     (+1 duplicate)   
-cryptography                                                                  45.0.5                                     python                      
+cryptography                                                                  45.0.6                                     python                      
 csstype                                                                       3.1.2                                      npm                         
 curl                                                                          7.88.1-10+deb12u12                         deb                         
 dario.cat/mergo                                                               v1.0.0                                     go-module                   
@@ -1039,7 +1039,7 @@ perl-modules-5.36                                                             5.
 pillow                                                                        11.3.0                                     python                      
 pinentry-curses                                                               1.2.1-1                                    deb                         
 pip                                                                           23.0.1                                     python                      
-pixelflux                                                                     1.3.0                                      python                      
+pixelflux                                                                     1.3.1                                      python                      
 pkg-up                                                                        3.1.0                                      npm                         
 polkitd                                                                       122-3                                      deb                         
 poppler-data                                                                  0.4.12-1                                   deb                         
