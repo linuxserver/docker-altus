@@ -425,7 +425,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
-* **22.09.25:** - Rebase to Debian Trixie..
+* **22.09.25:** - Rebase to Debian Trixie.
 * **12.07.25:** - Rebase to Selkies, HTTPS IS NOW REQUIRED.
 * **19.10.24:** - Switch to multi-arch.
 * **29.01.24:** - Structural changes for v5.

@@ -105,7 +105,7 @@ init_diagram: |
   "altus:latest" <- Base Images
 # changelog
 changelogs:
-  - {date: "22.09.25:", desc: "Rebase to Debian Trixie.."}
+  - {date: "22.09.25:", desc: "Rebase to Debian Trixie."}
   - {date: "12.07.25:", desc: "Rebase to Selkies, HTTPS IS NOW REQUIRED."}
   - {date: "19.10.24:", desc: "Switch to multi-arch."}
   - {date: "29.01.24:", desc: "Structural changes for v5."}
