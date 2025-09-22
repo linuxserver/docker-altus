@@ -24,9 +24,6 @@ param_ports:
   - {external_port: "3001", internal_port: "3001", port_desc: "Altus desktop gui HTTPS."}
 custom_params:
   - {name: "shm-size", name_compose: "shm_size", value: "1gb", desc: "Required for electron apps to fucntion properly."}
-opt_security_opt_param: true
-opt_security_opt_param_vars:
-  - {run_var: "seccomp=unconfined", compose_var: "seccomp:unconfined", desc: "For Docker Engine only, many modern gui apps need this to function on older hosts as syscalls are unknown to Docker."}
 readonly_supported: false
 nonroot_supported: false
 # Selkies blurb settings
@@ -108,6 +105,7 @@ init_diagram: |
   "altus:latest" <- Base Images
 # changelog
 changelogs:
+  - {date: "22.09.25:", desc: "Rebase to Debian Trixie.."}
   - {date: "12.07.25:", desc: "Rebase to Selkies, HTTPS IS NOW REQUIRED."}
   - {date: "19.10.24:", desc: "Switch to multi-arch."}
   - {date: "29.01.24:", desc: "Structural changes for v5."}

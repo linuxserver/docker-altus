@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # build stage
-FROM ghcr.io/linuxserver/baseimage-debian:arm64v8-bookworm AS build-stage
+FROM ghcr.io/linuxserver/baseimage-debian:arm64v8-trixie AS build-stage
 
 ARG ALTUS_VERSION
 
@@ -33,7 +33,7 @@ RUN \
   ln -s /opt/altus/Altus /opt/altus/altus
 
 # runtime stage
-FROM ghcr.io/linuxserver/baseimage-selkies:arm64v8-debianbookworm
+FROM ghcr.io/linuxserver/baseimage-selkies:arm64v8-debiantrixie
 
 # set version label
 ARG BUILD_DATE
