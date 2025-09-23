@@ -220,8 +220,6 @@ services:
   altus:
     image: lscr.io/linuxserver/altus:latest
     container_name: altus
-    security_opt:
-      - seccomp:unconfined #optional
     environment:
       - PUID=1000
       - PGID=1000
@@ -240,7 +238,6 @@ services:
 ```bash
 docker run -d \
   --name=altus \
-  --security-opt seccomp=unconfined `#optional` \
   -e PUID=1000 \
   -e PGID=1000 \
   -e TZ=Etc/UTC \
@@ -265,7 +262,6 @@ Containers are configured using parameters passed at runtime (such as those abov
 | `-e TZ=Etc/UTC` | specify a timezone to use, see this [list](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List). |
 | `-v /config` | Users home directory in the container, stores program settings and files. |
 | `--shm-size=` | Required for electron apps to fucntion properly. |
-| `--security-opt seccomp=unconfined` | For Docker Engine only, many modern gui apps need this to function on older hosts as syscalls are unknown to Docker. |
 
 ## Environment variables from files (Docker secrets)
 
@@ -429,6 +425,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **22.09.25:** - Rebase to Debian Trixie.
 * **12.07.25:** - Rebase to Selkies, HTTPS IS NOW REQUIRED.
 * **19.10.24:** - Switch to multi-arch.
 * **29.01.24:** - Structural changes for v5.
