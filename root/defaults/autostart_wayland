@@ -1,1 +1,1 @@
-/opt/altus/Altus --no-sandbox
+/opt/altus/Altus --ozone-platform=wayland --no-sandbox
