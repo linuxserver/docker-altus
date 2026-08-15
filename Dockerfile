@@ -30,7 +30,7 @@ RUN \
   echo "**** install altus studio from appimage ****" && \
   if [ -z "${ALTUS_VERSION+x}" ]; then \
     ALTUS_VERSION=$(curl -sX GET "https://api.github.com/repos/amanharwara/altus/releases/latest" \
-      | awk '/tag_name/{print $4;exit}' FS='[""]'); \
+      | jq -r '.tag_name'); \
   fi && \
   cd /tmp && \
   curl -o \
