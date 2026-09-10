@@ -35,6 +35,8 @@ app_setup_block: |
   The application can be accessed at:
 
   * https://yourhost:3001/
+
+  This image can also be deployed with one click using the official [Easypanel](https://easypanel.io/) template, available at https://easypanel.io/templates/altus.
 # init diagram
 init_diagram: |
   "altus:latest": {
