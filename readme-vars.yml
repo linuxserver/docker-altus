@@ -103,7 +103,7 @@ init_diagram: |
     svc-xsettingsd -> legacy-services
   }
   Base Images: {
-    "baseimage-selkies:debiantrixie" <- "baseimage-debian:trixie"
+    "baseimage-selkies:ubunturesolute" <- "baseimage-ubuntu:resolute"
   }
   "altus:latest" <- Base Images
 # changelog
